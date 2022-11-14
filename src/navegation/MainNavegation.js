@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { Component } from 'react'
 import Register from '../screens/Register/Register'
+import TabNavigation from './TabNavigation'
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import Home from '../screens/Home/Home'
 
@@ -26,7 +27,13 @@ class MainNavigation extends Component {
                         name='Registro'
                         component={Register}
                     />
-                    
+                    <Stack.Screen
+                        name='TabNavigation'
+                        component={TabNavigation}
+                        options={{
+                            headerShown:false
+                        }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         )
