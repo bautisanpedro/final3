@@ -3,6 +3,7 @@ import React from 'react'
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons'
 import Profile from '../screens/MyProfile/MyProfile'
 import HomeNavigation from './HomeNavigation'
+import NewPosts from '../screens/NewPost/NewPost'
 
 const Tab = createBottomTabNavigator()
 
@@ -26,8 +27,14 @@ export default function TabNavigation() {
           headerShown:false
         }} 
         />
-
-      
+        <Tab.Screen 
+        name='NewPost' 
+        component={NewPosts}
+        options={{
+          tabBarIcon: () => <Entypo name="squared-plus" size={38} color={'#0095F6'}/>,
+          headerShown:false
+        }} 
+        />
     </Tab.Navigator>
   )
 }
