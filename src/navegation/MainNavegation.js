@@ -2,50 +2,52 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { Component } from 'react'
 import Register from '../screens/Register/Register'
-import Login from '../screens/Login'
-import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
-import Home from '../screens/Home/Home'
+import Login from '../screens/Login/Login'
 import TabNavigation from './TabNavigation'
 
 
-const Nav = createNativeStackNavigator()
+
+
+const Stack = createNativeStackNavigator()
 
 
 class MainNavigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            initialScreen: 'Register'
+            initialScreen: 'Registro'
         }
     }
 
     render() {
         return (
             <NavigationContainer>
-                <Nav.Navigator initialRouteName={this.state.initialScreen}>
-                    <Nav.Screen 
-                    name= 'Login'
-                    component={Login}
-                    options= {{
-                        headerShown: flase
-                    }}
+                <Stack.Navigator initialRouteName={this.state.initialScreen}>
+                    <Stack.Screen
+                        name='Login'
+                        component={Login}
+                        options={{
+                            headerShown: false
+                        }}
                     />
-                   
-                    <Nav.Screen
+
+                    <Stack.Screen
                         name='Registro'
                         component={Register}
                         options={{
                             headerShown: false
                         }}
                     />
-                    <Nav.Screen
-                      name='TabNavigation'
-                      component={TabNavigation}
-                      options={{
-                          headerShown:false
+
+                    <Stack.Screen
+                        name='TabNavigation'
+                        component={TabNavigation}
+                        options={{
+                            headerShown: false
                         }}
-                        />
-                </Nav.Navigator>
+                    />
+
+                </Stack.Navigator>
             </NavigationContainer>
         )
     }

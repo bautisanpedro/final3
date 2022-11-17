@@ -15,7 +15,7 @@ class Register extends Component {
 
     registrar(email, password) {
         auth.createUserWithEmailAndPassword(email, password)
-            .then(resp => this.props.navigation.navigate('TabNavigation'))
+            .then(resp => this.props.navigation.navigate('Login'))
             .catch(err => this.setState({ error: err.message }))
     }
 
@@ -23,19 +23,17 @@ class Register extends Component {
         return (
             <View style={styles.body}>
                 <View>
-                    <Text style={styles.registrar}>
-                        Podes registratrte acá abajo
-                    </Text>
+                    <Text style={styles.titulo}>Registro</Text>
 
                     <TextInput
                         style={styles.input}
-                        placeholder='Escribi tu email'
+                        placeholder='Ingresá tu correo'
                         onChangeText={text => this.setState({ email: text })}
                         value={this.state.email}
                     />
                     <TextInput
                         style={styles.input}
-                        placeholder='Escribi tu password'
+                        placeholder='Creá tu contraseña'
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
                         secureTextEntry={true}
@@ -48,7 +46,7 @@ class Register extends Component {
                     </View>
 
                     <View style = {styles.login}>
-                        <Text style={styles.registrar}>Ya tienes una cuenta?</Text>
+                        <Text style={styles.registrar}>¿Ya tienes una cuenta?</Text>
                         <TouchableOpacity style={styles.botones} onPress={() => this.props.navigation.navigate('Login')}>
                             <Text>Log in</Text>
                         </TouchableOpacity>
@@ -85,14 +83,20 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: 'white',
     },
-    registrar: {
+    titulo:{
         marginTop: 70,
-        fontColor: 'white'
+        fontSize: 20
+    },
+    registrar: {
+        marginTop: 40,
+        fontSize: 15
     },
     body: {
-        flex: 2,
+        flex: 1,
         alignItems: 'center',
+        alignContent: 'center',
         backgroundColor: '#faedcd',
+        
 
     }
 })

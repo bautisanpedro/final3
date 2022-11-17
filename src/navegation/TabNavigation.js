@@ -1,23 +1,25 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
-import Home from '../screens/Home/Home'
-import { Entypo } from '@expo/vector-icons'; 
-import HomeNavigation from './HomeNavigation';
+import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons'
 
+import HomeNavigation from './HomeNavigation'
 
 const Tab = createBottomTabNavigator()
 
 export default function TabNavigation() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{tabBarShowLabel: false}}>
+
         <Tab.Screen 
         name={'HomeNavigation'} 
         component={HomeNavigation}
         options={{
-            tabBarIcon: () => <Entypo name="home" size={24} color="black" />,
-            headerShown:false
-        }}/>
-       
+          tabBarIcon: () => <Ionicons name='ios-home' color={'#0095F6'} size={35} />,
+          headerShown:false
+        }}
+        />
+
+      
     </Tab.Navigator>
   )
 }
