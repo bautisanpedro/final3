@@ -15,40 +15,38 @@ class Register extends Component {
 
     registrar(email, password) {
         auth.createUserWithEmailAndPassword(email, password)
-            .then(resp => this.props.navigation.navigate('TabNavigation'))
+            .then(resp => this.props.navigation.navigate('Login'))
             .catch(err => this.setState({ error: err.message }))
     }
 
     render() {
         return (
             <View style={styles.body}>
-                <View style={styles.body}>
-                    <Text style={styles.registrar}>
-                        Podes registratrte acá abajo
-                    </Text>
+                <View>
+                    <Text style={styles.titulo}>Registro</Text>
 
                     <TextInput
-                    style={styles.input}
-                    placeholder='Escribi tu email'
-                    onChangeText={text => this.setState({email: text})}
-                    value={this.state.email}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Escribi tu password'
-                    onChangeText={text => this.setState({password: text})}
-                    value={this.state.password}
-                    secureTextEntry={true}
-                />
-                   
+                        style={styles.input}
+                        placeholder='Ingresá tu correo'
+                        onChangeText={text => this.setState({ email: text })}
+                        value={this.state.email}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Creá tu contraseña'
+                        onChangeText={text => this.setState({ password: text })}
+                        value={this.state.password}
+                        secureTextEntry={true}
+                    />
+
                     <View>
                         <TouchableOpacity style={styles.botones} onPress={() => this.registrar(this.state.email, this.state.password)}>
                             <Text>Registrar usuario</Text>
                         </TouchableOpacity>
                     </View>
 
-                    <View>
-                        <Text style={styles.registrar}>Ya tienes una cuenta?</Text>
+                    <View style = {styles.login}>
+                        <Text style={styles.registrar}>¿Ya tienes una cuenta?</Text>
                         <TouchableOpacity style={styles.botones} onPress={() => this.props.navigation.navigate('Login')}>
                             <Text>Log in</Text>
                         </TouchableOpacity>
@@ -69,12 +67,12 @@ const styles = StyleSheet.create({
         margin: 20,
         alignContent: 'center',
         alignItems: 'center',
-       backgroundColor: 'white',
-       borderRadius: 5,
-       padding: 8,
-       width: 'fit-content',
-       backgroundColor: '#d4a373',
-       
+        backgroundColor: 'white',
+        borderRadius: 5,
+        padding: 8,
+        width: 'fit-content',
+        backgroundColor: '#d4a373',
+
 
     },
     input: {
@@ -85,16 +83,21 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: 'white',
     },
+    titulo:{
+        marginTop: 70,
+        fontSize: 20
+    },
     registrar: {
-        marginTop:30,
-        fontColor: 'white'
+        marginTop: 40,
+        fontSize: 15
     },
     body: {
-        flex: 2,
+        flex: 1,
         alignItems: 'center',
         alignContent: 'center',
         backgroundColor: '#faedcd',
         
+
     }
 })
 

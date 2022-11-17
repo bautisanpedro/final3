@@ -2,9 +2,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { Component } from 'react'
 import Register from '../screens/Register/Register'
+import Login from '../screens/Login/Login'
 import TabNavigation from './TabNavigation'
-import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
-import Home from '../screens/Home/Home'
+
 
 
 
@@ -15,7 +15,7 @@ class MainNavigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            initialScreen: 'Register'
+            initialScreen: 'Registro'
         }
     }
 
@@ -24,16 +24,29 @@ class MainNavigation extends Component {
             <NavigationContainer>
                 <Stack.Navigator initialRouteName={this.state.initialScreen}>
                     <Stack.Screen
+                        name='Login'
+                        component={Login}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+
+                    <Stack.Screen
                         name='Registro'
                         component={Register}
+                        options={{
+                            headerShown: false
+                        }}
                     />
+
                     <Stack.Screen
                         name='TabNavigation'
                         component={TabNavigation}
                         options={{
-                            headerShown:false
+                            headerShown: false
                         }}
                     />
+
                 </Stack.Navigator>
             </NavigationContainer>
         )
