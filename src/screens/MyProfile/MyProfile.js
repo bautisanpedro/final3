@@ -8,46 +8,41 @@ class Profile extends Component {
     constructor(){
         super()
         this.state={
-            comments:[],
+            posts:[],
+            perfil:{},
             loading:true
         }
     }
 
-    componentDidMount(){
-        db.collection('comments').onSnapshot(
-            docs => {
-                let allComments = []
-                docs.forEach(doc => {
-                    allComments.push({
-                        id:doc.id,
-                        data:doc.data()
-                    })
-                })
-
-                this.setState({
-                    comments: allComments,
-                    loading:false
-                }, ()=> console.log(this.state.comments))
-
-
-            }
-        )
-    }
-
-    signOut(){
+signOut(){
         auth.signOut()
+        .then(resp => this.props.navigation.navigate("Login"))
     }
 
     render() {
         return (
-        <View>
-            <Text>Profile</Text>
-            <TouchableOpacity onPress={()=> this.signOut()}>
-                <Text>Cerrar sesión</Text>
+          <View>
+            {
+             <>
+             <Text>Nombre de Usuario:</Text>
+             <Text>Email:</Text>
+             <Text>Biografía:</Text>
+    
+             </>
+            }
+           
+             
+           
+           <Text>Tus Publicaciones </Text> 
+            
+            
+            <TouchableOpacity onPress={() => this.signOut()}>
+              <Text>Cerrar Sesion</Text>
             </TouchableOpacity>
-        </View>
+          
+            </View>
         )
+      }
     }
-}
 
 export default Profile
