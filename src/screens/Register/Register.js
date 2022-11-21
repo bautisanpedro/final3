@@ -9,15 +9,33 @@ class Register extends Component {
         this.state = {
             email: '',
             password: '',
+            usuario:'',
+            decripcion:'',
+            foto:'',
             error: ''
         }
     }
 
-    registrar(email, password) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(resp => this.props.navigation.navigate('Login'))
-            .catch(err => this.setState({ error: err.message }))
-    }
+    registrar(email, clave){
+        if (this.state.usuario == '') {
+            this.setState({error:"El usuario no puede quedar vacío"})
+          }
+        else {
+        auth.createUserWithEmailAndPassword(email, clave)
+        .then(resp => {
+            db.collection('users').add({
+                email: auth.currentUser.email,
+                usuario: this.state.usuario,
+                createdAt: Date.now(), 
+                clave: this.state.clave,
+                biografia: this.state.biografia,
+                foto: this.state.foto
+            })
+        })
+        .then( resp => this.props.navigation.navigate('Login'))
+        .catch( err => this.setState({error:err.message}))
+    }}
+  
 
     render() {
         return (
@@ -38,6 +56,12 @@ class Register extends Component {
                         value={this.state.password}
                         secureTextEntry={true}
                     />
+                     <View>
+
+                    <TouchableOpacity onPress={()=> this.pickImage()}>
+                        <Text style={styles.botton}>Foto de perfil</Text>
+                    </TouchableOpacity>
+                </View>
 
                     <View>
                         <TouchableOpacity style={styles.botones} onPress={() => this.registrar(this.state.email, this.state.password)}>

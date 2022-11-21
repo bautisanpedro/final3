@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { auth } from '../../firebase/config'
 
 class Search extends Component {
     constructor(props) {
@@ -22,14 +24,10 @@ class Search extends Component {
     }
 
     render() {
-        return (
-            <form className='busqueda' onSubmit={(e) => this.evitarSubmit(e)} >
-                <span className="material-symbols-outlined"> search </span>
-
-                <input type='text' placeholder='Buscar' onChange={(e) => this.controlarCambios(e)} value={this.state.valor} />
-                
-            </form>
+        return(
+       <Text>Search</Text>
         )
+
     }
 }
 

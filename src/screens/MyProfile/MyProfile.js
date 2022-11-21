@@ -41,7 +41,7 @@ class Profile extends Component {
     render() {
         return (
         <View>
-            <Text>Profile</Text>
+            <Text>En vez de Profile, Perfil</Text>
             <TouchableOpacity onPress={()=> this.signOut()}>
                 <Text>Cerrar sesión</Text>
             </TouchableOpacity>
