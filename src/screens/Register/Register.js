@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
-import { auth } from '../../firebase/config'
+import { auth, db } from '../../firebase/config'
+
 
 class Register extends Component {
 
@@ -9,15 +10,32 @@ class Register extends Component {
         this.state = {
             email: '',
             password: '',
-            error: ''
+            error: '',
+            username:'',
+            biografia:''
+
         }
     }
 
-    registrar(email, password) {
+
+    registrar(email, password){
+        if (this.state.username == '') {
+            this.setState({error:"El usuario no puede quedar vacío"})
+          }
+        else {
         auth.createUserWithEmailAndPassword(email, password)
-            .then(resp => this.props.navigation.navigate('Login'))
-            .catch(err => this.setState({ error: err.message }))
-    }
+        .then(resp => {
+            db.collection('users').add({
+                username: this.state.username,
+                email: auth.currentUser.email,
+                biografia: this.state.biografia,
+                password: this.state.password,
+                createdAt: Date.now(), 
+            })
+        })
+        .then( resp => this.props.navigation.navigate('Login'))
+        .catch( err => this.setState({error:err.message}))
+    }}
 
     render() {
         return (
@@ -33,10 +51,23 @@ class Register extends Component {
                     />
                     <TextInput
                         style={styles.input}
+                        placeholder='Ingresa tu usuario'
+                        onChangeText={text => this.setState({ username: text })}
+                        value={this.state.username}
+                    />
+                    <TextInput
+                        style={styles.input}
                         placeholder='Creá tu contraseña'
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
                         secureTextEntry={true}
+                    />
+                    
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Ingresá tu biografía'
+                        onChangeText={text => this.setState({ biografia: text })}
+                        value={this.state.biografia}
                     />
 
                     <View>
