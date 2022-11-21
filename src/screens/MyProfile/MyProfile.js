@@ -1,6 +1,8 @@
 import { Text, View, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
+import { Post } from '../../components/Post/Post'
+
 
 
 class Profile extends Component {
@@ -8,46 +10,52 @@ class Profile extends Component {
     constructor(){
         super()
         this.state={
-            comments:[],
-            loading:true
+            posts:[],
+            perfil:{},
+            id: '',
         }
     }
 
     componentDidMount(){
-        db.collection('comments').onSnapshot(
-            docs => {
-                let allComments = []
-                docs.forEach(doc => {
-                    allComments.push({
-                        id:doc.id,
-                        data:doc.data()
-                    })
-                })
-
-                this.setState({
-                    comments: allComments,
-                    loading:false
-                }, ()=> console.log(this.state.comments))
-
-
-            }
-        )
+        db.collection('users')
+        .where('email', '==', auth.currentUser.email)
+        .onSnapshot(doc => {
+          doc.forEach(doc => this.setState({
+            id: doc.id,
+            perfil: doc.data()
+          })) 
+        })
     }
 
-    signOut(){
+signOut(){
         auth.signOut()
+        .then(resp => this.props.navigation.navigate("Login"))
     }
 
     render() {
         return (
-        <View>
-            <Text>En vez de Profile, Perfil</Text>
-            <TouchableOpacity onPress={()=> this.signOut()}>
-                <Text>Cerrar sesión</Text>
+          <View>
+            {
+             <>
+             <Text>Nombre de Usuario: {this.state.perfil.username}</Text>
+             <Text>Email:  {this.state.perfil.email}</Text>
+             <Text>Biografía: {this.state.perfil.biografia}</Text>
+    
+             </>
+            }
+           
+             
+           
+           <Text>Tus Publicaciones </Text> 
+            
+            
+            <TouchableOpacity onPress={() => this.signOut()}>
+              <Text>Cerrar Sesion</Text>
             </TouchableOpacity>
-        </View>
+          
+            </View>
         )
+      }
     }
-}
 
 export default Profile

@@ -4,6 +4,7 @@ import { Ionicons, Entypo, FontAwesome, AntDesign } from '@expo/vector-icons'
 import Profile from '../screens/MyProfile/MyProfile'
 import HomeNavigation from './HomeNavigation'
 import Search from '../screens/Search/Search'
+import NewPosts from '../screens/NewPost/NewPost'
 
 const Tab = createBottomTabNavigator()
 
@@ -38,6 +39,14 @@ export default function TabNavigation() {
         />
 
       
+        <Tab.Screen 
+        name='NewPost' 
+        component={NewPosts}
+        options={{
+          tabBarIcon: () => <Entypo name="squared-plus" size={38} color={'#0095F6'}/>,
+          headerShown:false
+        }} 
+        />
     </Tab.Navigator>
   )
 }

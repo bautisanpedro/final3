@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
-import { auth } from '../../firebase/config'
+import { auth, db } from '../../firebase/config'
+
 
 class Register extends Component {
 
@@ -9,27 +10,27 @@ class Register extends Component {
         this.state = {
             email: '',
             password: '',
-            usuario:'',
-            decripcion:'',
-            foto:'',
-            error: ''
+            error: '',
+            username:'',
+            descripcion:''
+
         }
     }
 
-    registrar(email, clave){
-        if (this.state.usuario == '') {
+
+    registrar(email, password){
+        if (this.state.username == '') {
             this.setState({error:"El usuario no puede quedar vacío"})
           }
         else {
-        auth.createUserWithEmailAndPassword(email, clave)
+        auth.createUserWithEmailAndPassword(email, password)
         .then(resp => {
             db.collection('users').add({
+                username: this.state.username,
                 email: auth.currentUser.email,
-                usuario: this.state.usuario,
+                decripcion: this.state.descripcion,
+                password: this.state.password,
                 createdAt: Date.now(), 
-                clave: this.state.clave,
-                biografia: this.state.biografia,
-                foto: this.state.foto
             })
         })
         .then( resp => this.props.navigation.navigate('Login'))
@@ -51,6 +52,12 @@ class Register extends Component {
                     />
                     <TextInput
                         style={styles.input}
+                        placeholder='Ingresa tu usuario'
+                        onChangeText={text => this.setState({ username: text })}
+                        value={this.state.username}
+                    />
+                    <TextInput
+                        style={styles.input}
                         placeholder='Creá tu contraseña'
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
@@ -62,6 +69,13 @@ class Register extends Component {
                         <Text style={styles.botton}>Foto de perfil</Text>
                     </TouchableOpacity>
                 </View>
+                    
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Ingresá tu descripción'
+                        onChangeText={text => this.setState({ descripcion: text })}
+                        value={this.state.biografia}
+                    />
 
                     <View>
                         <TouchableOpacity style={styles.botones} onPress={() => this.registrar(this.state.email, this.state.password)}>

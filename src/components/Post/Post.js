@@ -15,15 +15,13 @@ class Post extends Component {
     }
 
     componentDidMount(){
-        //['Brian', 'Nelson', 'Cami']
-        //  .('Cami')
         let myLike = this.props.data.likes.includes(auth.currentUser.email)
         if(myLike){
             this.setState({
                 isMyLike:true
-            })
+            })  
         }
-    }
+    }   
 
     like(){
         db
@@ -38,7 +36,7 @@ class Post extends Component {
                 likesCount: this.state.likesCount + 1
             })
         })
-        .catch(err=> console.log(err))
+        .catch(err=> console.log(err))      
     }
 
     unlike(){
@@ -56,9 +54,17 @@ class Post extends Component {
         .catch(err => console.log(err))
     }
 
-    render() {
+    delete(){
+        db.collection('posts')
+        .doc(this.props.id)
+        .delete()
+        .then(()=> {this.props.navigation.navigate('Profile')})
+        .catch(err=> console.log(err))
+    }
+
+  render() {
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
         <View>
             <Text style={styles.subtitle}>Descripcion:</Text>
             <Text>{this.props.data.description}</Text>
@@ -75,14 +81,14 @@ class Post extends Component {
                     <FontAwesome name='heart-o' color='red' size={32} />
                 </TouchableOpacity>
         }
+        </View>
         <TouchableOpacity onPress={()=> this.props.navigation.navigate('Comments')}>
             <Text>Agregar comentario</Text>
         </TouchableOpacity>
-        </View>
         
-        </View>
+      </View>
     )
-    }
+  }
 }
 
 const styles = StyleSheet.create({

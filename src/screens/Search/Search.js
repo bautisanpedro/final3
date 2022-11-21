@@ -1,34 +1,46 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { auth } from '../../firebase/config'
+import { View, Text, TextInput, TouchableOpacity} from 'react-native';
+import { ActivityIndicator, FlatList } from 'react-native-web';
+import { auth, db } from '../firebase/config';
 
 class Search extends Component {
     constructor(props) {
         super(props)
         this.state = { 
-            valor: ''
+            search: '',
+            results: [],
+            
         }
     }
-
-    evitarSubmit(event) {
-        event.preventDefault()
-        console.log(event)
-    }
-
-    controlarCambios(event) {
-        this.setState({
-            valor: event.target.value
-        },
-            () => this.props.filtrar(this.state.valor)
-        )
-    }
+    
+    componentDidMount(){
+        db.collection('users').onSnapshot(
+            docs =>{
+                    let users = [];
+               docs.forEach( doc => {
+                    users.push({
+                        id: doc.id,
+                        data: doc.data()
+            })
+                   this.setState({
+                    results: users,
+                    loading: false
+               })
+            })
+            
+    })
+}
 
     render() {
-        return(
-       <Text>Search</Text>
+        return (
+           <Text>Search</Text>
         )
 
     }
 }
+
+
 
 export default Search
