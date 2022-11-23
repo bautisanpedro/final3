@@ -9,8 +9,11 @@ class Post extends Component {
     constructor(props){
         super(props)
         this.state = {
-            isMyLike: false,
-            likesCount: props.data.likes.length //0 15 4856649
+            MyLike: false,
+            likesCount: props.data.likes.length,
+            ComentsCount: props.data.comentarios.length,
+            data: {},
+            MyPost: false
         }
     }
 
@@ -18,7 +21,7 @@ class Post extends Component {
         let myLike = this.props.data.likes.includes(auth.currentUser.email)
         if(myLike){
             this.setState({
-                isMyLike:true
+                MyLike:true
             })  
         }
     }   
@@ -72,7 +75,7 @@ class Post extends Component {
         <View>
             <Text>{this.state.likesCount}</Text>
         {
-            this.state.isMyLike ?
+            this.state.MyLike ?
                 <TouchableOpacity onPress={()=> this.unlike()}>
                     <FontAwesome name='heart' color='red' size={32} />
                 </TouchableOpacity>

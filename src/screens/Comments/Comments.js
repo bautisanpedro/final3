@@ -8,8 +8,17 @@ class Comments extends Component {
   constructor(props){
     super(props)
     this.state={
-      comentario: ''
+      comentario: '',
+      comentarios: ''
     }
+  }
+
+  componentDidMount(){
+    db.collection('posts').doc(this.props.route.params.id).onSnapshot(docs => { // al pasarlo por id recibo un solo posteo
+      this.setState({
+        comentarios: docs.data().comentarios
+      })
+    })
   }
 
   guardarComentario(){
@@ -21,18 +30,17 @@ class Comments extends Component {
         usuario: auth.currentUser.email
       })
     })
-    .then( () => this.props.navigation.navigate('Login'))
+    .then()
     .catch(err => console.log(err))
   }
 
   render() {
-    console.log(this.props.route.params.id);
     return (
       <View style={styles.container}>
         <Text style={styles.text}>Comentarios mas recientes</Text>
 
         <FlatList 
-        data = {this.props.route.params.comentarios}
+        data = {this.state.comentarios}
         keyExtractor = {(item) => item.comentario}
         renderItem = {({item}) => <Comment data={item}/> }
         />
