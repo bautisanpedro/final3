@@ -2,6 +2,7 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
 import * as ImagePicker from 'expo-image-picker';
+import {storage} from '../../firebase/config'
 
 
 class Register extends Component {
@@ -19,25 +20,25 @@ class Register extends Component {
     }
 
 
-    registrar(email, password) {
-        if (this.state.username == '') {
-            this.setState({ error: "El usuario no puede quedar vacío" })
-        }
+    registrar(email, clave){
+        if (this.state.usuario == '') {
+            this.setState({error:"El usuario no puede quedar vacío"})
+          }
         else {
-            auth.createUserWithEmailAndPassword(email, password)
-                .then(resp => {
-                    db.collection('users').add({
-                        username: this.state.username,
-                        email: auth.currentUser.email,
-                        decripcion: this.state.descripcion,
-                        password: this.state.password,
-                        createdAt: Date.now(),
-                    })
-                })
-                .then(resp => this.props.navigation.navigate('Login'))
-                .catch(err => this.setState({ error: err.message }))
-        }
-    }
+        auth.createUserWithEmailAndPassword(email, clave)
+        .then(resp => {
+            db.collection('users').add({
+                email: auth.currentUser.email,
+                usuario: this.state.usuario,
+                createdAt: Date.now(), 
+                clave: this.state.clave,
+                biografia: this.state.biografia,
+                foto: this.state.foto
+            })
+        })
+        .then( resp => this.props.navigation.navigate('Login'))
+        .catch( err => this.setState({error:err.message}))
+    }}
     pickImage() {
         ImagePicker.launchImageLibraryAsync() // usuario elige entre sus fotos
             .then(resp => {
