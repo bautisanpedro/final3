@@ -12,50 +12,51 @@ class Register extends Component {
             email: '',
             password: '',
             error: '',
-            username:'',
-            descripcion:''
+            username: '',
+            descripcion: ''
 
         }
     }
 
 
-    registrar(email, password){
+    registrar(email, password) {
         if (this.state.username == '') {
-            this.setState({error:"El usuario no puede quedar vacío"})
-          }
+            this.setState({ error: "El usuario no puede quedar vacío" })
+        }
         else {
-        auth.createUserWithEmailAndPassword(email, password)
-        .then(resp => {
-            db.collection('users').add({
-                username: this.state.username,
-                email: auth.currentUser.email,
-                decripcion: this.state.descripcion,
-                password: this.state.password,
-                createdAt: Date.now(), 
-            })
-        })
-        .then( resp => this.props.navigation.navigate('Login'))
-        .catch( err => this.setState({error:err.message}))
-    }}
-    pickImage(){
-        ImagePicker.launchImageLibraryAsync() // usuario elige entre sus fotos
-        .then(resp => {
-            fetch(resp.uri) 
-            .then(data => data.blob()) // Paso la uri a BLOB = Binary Large OBject
-            .then(image => {
-                const ref = storage.ref(`fotosDePerfil/${Date.now()}.jpg`) // Aclaro donde y como se guarda lo foto en el storage de firebase
-                ref.put(image) // Guardo la imagen en esa ubicación
-                .then(()=> {
-                    ref.getDownloadURL() // Recibo la url de la foto para guardarla en la base de datos
-                    .then(url => {
-                            this.setState({foto:url}) // Guardo la url en el estado
-                        }
-                    )
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(resp => {
+                    db.collection('users').add({
+                        username: this.state.username,
+                        email: auth.currentUser.email,
+                        decripcion: this.state.descripcion,
+                        password: this.state.password,
+                        createdAt: Date.now(),
+                    })
                 })
+                .then(resp => this.props.navigation.navigate('Login'))
+                .catch(err => this.setState({ error: err.message }))
+        }
+    }
+    pickImage() {
+        ImagePicker.launchImageLibraryAsync() // usuario elige entre sus fotos
+            .then(resp => {
+                fetch(resp.uri)
+                    .then(data => data.blob()) // Paso la uri a BLOB = Binary Large OBject
+                    .then(image => {
+                        const ref = storage.ref(`fotosDePerfil/${Date.now()}.jpg`) // Aclaro donde y como se guarda lo foto en el storage de firebase
+                        ref.put(image) // Guardo la imagen en esa ubicación
+                            .then(() => {
+                                ref.getDownloadURL() // Recibo la url de la foto para guardarla en la base de datos
+                                    .then(url => {
+                                        this.setState({ foto: url }) // Guardo la url en el estado
+                                    }
+                                    )
+                            })
+                    })
+                    .catch(err => console.log(err))
             })
             .catch(err => console.log(err))
-        })
-        .catch(err => console.log(err))
     };
 
     render() {
@@ -83,13 +84,7 @@ class Register extends Component {
                         value={this.state.password}
                         secureTextEntry={true}
                     />
-                     <View>
 
-                    <TouchableOpacity style={styles.botton} onPress={()=> this.pickImage()}>
-                        <Text style={styles.botones}>Foto de perfil</Text>
-                    </TouchableOpacity>
-                </View>
-                    
                     <TextInput
                         style={styles.input}
                         placeholder='Ingresá tu descripción'
@@ -98,15 +93,23 @@ class Register extends Component {
                     />
 
                     <View>
-                        <TouchableOpacity style={styles.botones} onPress={() => this.registrar(this.state.email, this.state.password)}>
-                            <Text>Registrar usuario</Text>
+
+                        <TouchableOpacity onPress={() => this.pickImage()}>
+                            <Text style={styles.botones}>Foto de perfil</Text>
                         </TouchableOpacity>
                     </View>
 
-                    <View style = {styles.login}>
+
+                    <View>
+                        <TouchableOpacity onPress={() => this.registrar(this.state.email, this.state.password)}>
+                            <Text style={styles.botones}>Registrar usuario</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View>
                         <Text style={styles.registrar}>¿Ya tienes una cuenta?</Text>
-                        <TouchableOpacity style={styles.botones} onPress={() => this.props.navigation.navigate('Login')}>
-                            <Text>Log in</Text>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                            <Text style={styles.botones}>Log in</Text>
                         </TouchableOpacity>
                     </View>
                     {
@@ -122,18 +125,22 @@ class Register extends Component {
 
 const styles = StyleSheet.create({
     botones: {
-        margin: 20,
+        marginBottom: '10px',
+        flex: 1,
         alignContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
+        alignSelf: 'center',
+        marginTop: 20,
+        margin: 3,
+        padding: 10,
         borderRadius: 5,
-        padding: 8,
+        backgroundColor: '#8F8EBF',
         width: 'fit-content',
-        backgroundColor: '#d4a373',
-
+        color: 'white'
 
     },
     input: {
+        flex: 1,
+        alignContent: 'center',
         marginBottom: '10px',
         marginTop: 20,
         margin: 3,
@@ -141,20 +148,30 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: 'white',
     },
-    titulo:{
+    titulo: {
+        flex: 1,
+        alignContent: 'center',
+        alignSelf: 'center',
         marginTop: 70,
-        fontSize: 20
+        fontSize: 20,
+        color: 'white'
     },
     registrar: {
+        flex: 1,
+        alignSelf:'center',
+        alignContent: 'center',
+        marginBottom: '10px',
         marginTop: 40,
-        fontSize: 15
+        fontSize: 15,
+        color: 'white'
     },
     body: {
         flex: 1,
         alignItems: 'center',
         alignContent: 'center',
-        backgroundColor: '#faedcd',
-        
+        backgroundColor: '#4F4D8C',
+        color: 'white'
+
 
     }
 })

@@ -15,7 +15,7 @@ class MainNavigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            initialScreen: 'Registro'
+            initialScreen: 'Login'
         }
     }
 

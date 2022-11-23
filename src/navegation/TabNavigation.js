@@ -43,7 +43,7 @@ export default function TabNavigation() {
         name='NewPost' 
         component={NewPosts}
         options={{
-          tabBarIcon: () => <Entypo name="squared-plus" size={38} color={'#0095F6'}/>,
+          tabBarIcon: () => <Ionicons name="add-outline" size={26} color="black" />,
           headerShown:false
         }} 
         />

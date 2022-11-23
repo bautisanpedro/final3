@@ -4,7 +4,7 @@ import { Camera } from 'expo-camera'
 import { storage } from '../../firebase/config'
 import { Ionicons } from '@expo/vector-icons'; 
 
-class Camera extends Component {
+class Camara extends Component {
     constructor(){
         super()
         this.metodosCamara = null
@@ -143,4 +143,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Camera   
+export default Camara   

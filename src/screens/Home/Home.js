@@ -13,7 +13,7 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        db.collection('posts').where('owner', '==', auth.currentUser.email).limit(5).onSnapshot(docs => {
+        db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(docs => {
             let posteos = []
             docs.forEach(doc => {
                 posteos.push({
@@ -30,8 +30,9 @@ class Home extends Component {
     render() {
         return (
         <View style={styles.container}>
-            <Text>Home</Text>
+            <Text style={styles.home}>Home</Text>
             <FlatList
+                style={styles.lista}
                 data={this.state.allPosts}
                 keyExtractor={(item)=> item.id.toString()}
                 renderItem={({item}) => <Post navigation={this.props.navigation} id={item.id} data={item.data} />}
@@ -43,7 +44,21 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        flex:1,
+        backgroundColor: '#4F4D8C',
+        color: 'white'
+
+    },
+    lista:{
+       
+    },
+    home:{
+        color: 'white',
+        fontSize: 20,
+        flex:1,
+        alignSelf: 'center',
+        margin:25,
+
     }
 })
 
