@@ -1,6 +1,5 @@
 import { Text, View, FlatList, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-//import Card from '../../components/Card/Card'
 import {db, auth} from '../../firebase/config'
 import Post from '../../components/Post/Post'
 

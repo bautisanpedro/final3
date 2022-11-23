@@ -36,17 +36,17 @@ signOut(){
         return (
           <View>
             {
-             <>
-             <Text>Nombre de Usuario: {this.state.perfil.username}</Text>
-             <Text>Email:  {this.state.perfil.email}</Text>
-             <Text>Biografía: {this.state.perfil.biografia}</Text>
+            <>
+            <Text>Nombre de Usuario: {this.state.perfil.username}</Text>
+            <Text>Email:  {this.state.perfil.email}</Text>
+            <Text>Biografía: {this.state.perfil.biografia}</Text>
     
-             </>
+            </>
             }
-           
-             
-           
-           <Text>Tus Publicaciones </Text> 
+          
+          
+          
+          <Text>Tus Publicaciones </Text> 
             
             
             <TouchableOpacity onPress={() => this.signOut()}>

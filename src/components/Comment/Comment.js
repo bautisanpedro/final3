@@ -14,7 +14,7 @@ class Comment extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.textUser}>{this.state.usuario}:</Text>
-        <Text style={styles.text}>{this.state.comentario}</Text>
+        <Text style={styles.textUser}>{this.state.comentario}</Text>
       </View>
     )
   }
@@ -24,21 +24,32 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     flexDirection: 'row',
-    marginTop: 8, 
-    borderTopWidth: 0.2,
-    borderColor: '#B5B5B5'
+    margin: 8,
+    padding:5,
+    backgroundColor: '#8F8EBF',
+    borderRadius: 5,
+    borderTopWidth: 0,
+    borderColor: '#B5B5B5',
+    
   },
 
   textUser:{
-    fontWeight: 'bold',
-    marginRight: 5,
+    fontWeight: '400',
+    marginVertical: 20,
     fontSize: 16, 
-    marginTop: 5
+    flex:1,
+    /*
+    backgroundColor: '#8F8EBF',
+    borderRadius: 5,
+    width: 'fit-content',
+    padding: 8
+    */
+   
   },
 
   text:{
     fontSize: 16,
-    marginTop: 5
+    marginTop: 5,
   }
 })
 

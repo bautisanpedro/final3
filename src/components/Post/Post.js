@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React, { Component } from 'react'
 import {db, auth} from '../../firebase/config'
 import firebase from 'firebase'
@@ -16,16 +16,19 @@ class Post extends Component {
             MyPost: false
         }
     }
-
     componentDidMount(){
-        let myLike = this.props.data.likes.includes(auth.currentUser.email)
-        if(myLike){
+        if(this.props.data.email === auth.currentUser.email){
             this.setState({
-                MyLike:true
+                MyPost:true
             })  
         }
-    }   
-
+        if(this.props.data.likes.includes(auth.currentUser.email)){
+            this.setState({
+                MyLike:true
+            })
+        }
+        console.log(this.props.data)
+    }
     like(){
         db
         .collection('posts')
@@ -35,13 +38,12 @@ class Post extends Component {
         })
         .then(resp => {
             this.setState({
-                isMyLike:true,
+                MyLike:true,
                 likesCount: this.state.likesCount + 1
             })
         })
         .catch(err=> console.log(err))      
     }
-
     unlike(){
         db.collection('posts')
         .doc(this.props.id)
@@ -50,13 +52,12 @@ class Post extends Component {
         })
         .then(resp => {
             this.setState({
-                isMyLike:false,
+                MyLike:false,
                 likesCount: this.state.likesCount - 1
             })
         })
         .catch(err => console.log(err))
     }
-
     delete(){
         db.collection('posts')
         .doc(this.props.id)
@@ -64,52 +65,74 @@ class Post extends Component {
         .then(()=> {this.props.navigation.navigate('Profile')})
         .catch(err=> console.log(err))
     }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <View>
-            <Text style={styles.subtitle}>Descripcion:</Text>
-            <Text>{this.props.data.description}</Text>
-        </View>
-        <View>
-            <Text>{this.state.likesCount}</Text>
-        {
-            this.state.MyLike ?
-                <TouchableOpacity onPress={()=> this.unlike()}>
-                    <FontAwesome name='heart' color='red' size={32} />
+    render() {
+        return (
+            
+            <View style={styles.container}>
+                <Text onPress={()=>this.props.navigation.navigate('Perfil',  { email: this.props.data.email })} >
+                {this.props.data.email}
+                </Text>
+                <Image 
+                    style={styles.image}
+                    source={{uri: this.props.data.foto}}
+                    resizeMode='cover'
+                />
+                
+                <Text style={styles.subtitle}>Descripcion:</Text>
+                <Text>{this.props.data.descripcion}</Text>
+                
+                <Text>{this.state.likesCount}</Text>
+                    {
+                        this.state.MyLike ?
+                        <TouchableOpacity onPress={()=> this.unlike()}>
+                            <FontAwesome name='heart' color='red' size={32} />
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity onPress={()=> this.like()}>
+                            <FontAwesome name='heart-o' color='red' size={32} />
+                        </TouchableOpacity>
+                    }
+                
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Comments',{id: this.props.id})}>
+                    <Text>Agregar comentario</Text>
                 </TouchableOpacity>
-            :
-                <TouchableOpacity onPress={()=> this.like()}>
-                    <FontAwesome name='heart-o' color='red' size={32} />
-                </TouchableOpacity>
-        }
-        </View>
-        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Comments')}>
-            <Text>Agregar comentario</Text>
-        </TouchableOpacity>
-        
-      </View>
-    )
-  }
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
     container:{
-        flexDirection: 'row',
-        paddingHorizontal:10,
-        paddingVertical:16,
+        flex:1,
+        flexDirection: 'column',
+        paddingHorizontal:0,
+        paddingVertical:12,
+        alignItems: 'center',
         justifyContent:'space-between',
-        marginVertical:16,
+        marginVertical:6,
         marginHorizontal:10,
         backgroundColor:'#8F8EBF',
         borderRadius:5,
-        color: 'white'
+        color: 'white',
+
     },
     subtitle:{
-        fontWeight:700,
-        
-    }
+        fontWeight:550,
+        margin:8,
+
+    },
+    image:{
+        marginTop: 12,
+        marginBottom: 8,
+        height: 270,
+        width: 270,
+        borderRadius: 5,
+        borderWidth:2,
+        borderColor: '#4F4D8C',
+        alignItems: 'center',
+        backgroundColor: '#4F4D8C',
+        margin: 8
+    },
 })
 
 export default Post
