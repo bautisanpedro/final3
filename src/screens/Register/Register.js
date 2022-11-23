@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
+import * as ImagePicker from 'expo-image-picker';
 
 
 class Register extends Component {
@@ -36,7 +37,26 @@ class Register extends Component {
         .then( resp => this.props.navigation.navigate('Login'))
         .catch( err => this.setState({error:err.message}))
     }}
-  
+    pickImage(){
+        ImagePicker.launchImageLibraryAsync() // usuario elige entre sus fotos
+        .then(resp => {
+            fetch(resp.uri) 
+            .then(data => data.blob()) // Paso la uri a BLOB = Binary Large OBject
+            .then(image => {
+                const ref = storage.ref(`fotosDePerfil/${Date.now()}.jpg`) // Aclaro donde y como se guarda lo foto en el storage de firebase
+                ref.put(image) // Guardo la imagen en esa ubicación
+                .then(()=> {
+                    ref.getDownloadURL() // Recibo la url de la foto para guardarla en la base de datos
+                    .then(url => {
+                            this.setState({foto:url}) // Guardo la url en el estado
+                        }
+                    )
+                })
+            })
+            .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
+    };
 
     render() {
         return (
@@ -65,8 +85,8 @@ class Register extends Component {
                     />
                      <View>
 
-                    <TouchableOpacity onPress={()=> this.pickImage()}>
-                        <Text style={styles.botton}>Foto de perfil</Text>
+                    <TouchableOpacity style={styles.botton} onPress={()=> this.pickImage()}>
+                        <Text style={styles.botones}>Foto de perfil</Text>
                     </TouchableOpacity>
                 </View>
                     

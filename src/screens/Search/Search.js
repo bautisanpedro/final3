@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { auth } from '../../firebase/config'
 import { View, Text, TextInput, TouchableOpacity} from 'react-native';
 import { ActivityIndicator, FlatList } from 'react-native-web';
-import { auth, db } from '../firebase/config';
+import { auth, db } from '../../firebase/config';
 
 class Search extends Component {
     constructor(props) {
@@ -35,7 +33,9 @@ class Search extends Component {
 
     render() {
         return (
+            <View>
            <Text>Search</Text>
+           </View>
         )
 
     }
