@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React, { Component } from 'react'
 import {db, auth} from '../../firebase/config'
 import firebase from 'firebase'
@@ -71,7 +71,12 @@ class Post extends Component {
 
     render() {
         return (
-            <View style={styles.container}>  
+            
+            <View style={styles.container}> 
+                <Image 
+                    style={styles.image}
+                    source={{uri: `${this.props.data.foto}`}}
+                />
                 <View>
                     <Text style={styles.subtitle}>Descripcion:</Text>
                     <Text>{this.props.data.descripcion}</Text>

@@ -12,7 +12,7 @@ class Camara extends Component {
             mostrarCamara: false,
             fotoUri: ''
         }
-    }
+    }  
 
     // Permisos
     componentDidMount(){
