@@ -16,7 +16,6 @@ class Post extends Component {
             MyPost: false
         }
     }
-
     componentDidMount(){
         if(this.props.data.email === auth.currentUser.email){
             this.setState({
@@ -29,8 +28,7 @@ class Post extends Component {
             })
         }
         console.log(this.props.data)
-    }   
-
+    }
     like(){
         db
         .collection('posts')
@@ -46,7 +44,6 @@ class Post extends Component {
         })
         .catch(err=> console.log(err))      
     }
-
     unlike(){
         db.collection('posts')
         .doc(this.props.id)
@@ -61,7 +58,6 @@ class Post extends Component {
         })
         .catch(err => console.log(err))
     }
-
     delete(){
         db.collection('posts')
         .doc(this.props.id)
@@ -69,24 +65,23 @@ class Post extends Component {
         .then(()=> {this.props.navigation.navigate('Profile')})
         .catch(err=> console.log(err))
     }
-
     render() {
         return (
             
-            <View style={styles.container}> 
+            <View style={styles.container}>
+                <Text onPress={()=>this.props.navigation.navigate('Perfil',  { email: this.props.data.email })} >
+                {this.props.data.email}
+                </Text>
                 <Image 
-                        style={styles.image}
-                        source={{uri: this.props.data.foto}}
-                        resizeMode='cover'
-                    />
-                <View>
-                    <Text style={styles.subtitle}>Descripcion:</Text>
-                    <Text>{this.props.data.descripcion}</Text>
-                </View>
+                    style={styles.image}
+                    source={{uri: this.props.data.foto}}
+                    resizeMode='cover'
+                />
                 
-                <View>
-                    
-                    <Text>{this.state.likesCount}</Text>
+                <Text style={styles.subtitle}>Descripcion:</Text>
+                <Text>{this.props.data.descripcion}</Text>
+                
+                <Text>{this.state.likesCount}</Text>
                     {
                         this.state.MyLike ?
                         <TouchableOpacity onPress={()=> this.unlike()}>
@@ -97,7 +92,7 @@ class Post extends Component {
                             <FontAwesome name='heart-o' color='red' size={32} />
                         </TouchableOpacity>
                     }
-                </View>
+                
                 <TouchableOpacity onPress={()=> this.props.navigation.navigate('Comments',{id: this.props.id})}>
                     <Text>Agregar comentario</Text>
                 </TouchableOpacity>
@@ -111,6 +106,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         paddingHorizontal:0,
         paddingVertical:0,
+        alignItems: 'center',
         justifyContent:'space-between',
         marginVertical:6,
         marginHorizontal:10,
@@ -123,8 +119,8 @@ const styles = StyleSheet.create({
     image:{
         marginTop: 10,
         marginBottom: 8,
-        height:300,
-        width: 300,
+        height: 270,
+        width: 270,
         borderRadius: 8,
         alignItems: 'center',
     },
