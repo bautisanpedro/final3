@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, TouchableOpacity} from 'react-native';
-import { ActivityIndicator, FlatList } from 'react-native-web';
+import { View, Text, TextInput, TouchableOpacity,  FlatList} from 'react-native';
 import { auth, db } from '../../firebase/config'
 
 class Search extends Component {
@@ -23,8 +22,8 @@ class Search extends Component {
                         data: doc.data()
             })
                    this.setState({
-                    results: users,
-                    loading: false
+                    results: usuarios,
+                    
                })
             })
             
@@ -36,7 +35,7 @@ class Search extends Component {
            <Text>Search</Text>
         )
 
-    }
+}
 }
 
 
