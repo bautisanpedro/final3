@@ -53,12 +53,17 @@ export class Login extends Component {
              </TouchableOpacity>
         </View>
 
-        <View style={styles.alRegistro}>
-                <Text>¿Aún no tienes una cuenta?</Text>
+        <View>
+                <Text style={styles.alRegistro}>¿Aún no tienes una cuenta?</Text>
                 <TouchableOpacity style={styles.botones} onPress={() => this.props.navigation.navigate('Registro') }>
                     <Text style={styles.register}>Registrate</Text>
                 </TouchableOpacity>
             </View>
+            {
+                        this.state.error !== '' ?
+                            <Text style={styles.error}>{this.state.error}</Text> :
+                            <Text></Text>
+                    }
        
       </View>
      
@@ -67,18 +72,24 @@ export class Login extends Component {
 }
 const styles = StyleSheet.create({
     botones: {
-        margin: 20,
-        alignContent: 'center',
+        flex: 1,
         alignItems: 'center',
+        alignContent: 'center',
+        margin: 20,
+        alignSelf: 'center',
         backgroundColor: 'white',
         borderRadius: 5,
         padding: 8,
         width: 'fit-content',
-        backgroundColor: '#d4a373',
+        backgroundColor: '#8F8EBF',
+        color:'white'
 
 
     },
     input: {
+        flex: 1,
+        alignItems: 'center',
+        alignContent: 'center',
         marginBottom: '10px',
         marginTop: 20,
         margin: 3,
@@ -88,15 +99,25 @@ const styles = StyleSheet.create({
     },
     login: {
         marginTop: 70,
-        fontSize: 20
+        fontSize: 20,
+        color: 'white'
     },
     alRegistro:{
+        color: 'white',
         marginTop: 40
+    },
+    error:{
+        color: 'red',
+        backgroundColor: '#8F8EBF',
+        marginHorizontal: 20,
+        borderRadius: 5,
+        padding: 8
+
     },
     body: {
         flex: 2,
         alignItems: 'center',
-        backgroundColor: '#faedcd',
+        backgroundColor: '#4F4D8C',
         
 
     }

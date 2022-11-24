@@ -103,26 +103,35 @@ class Post extends Component {
 
 const styles = StyleSheet.create({
     container:{
+        flex:1,
         flexDirection: 'column',
         paddingHorizontal:0,
-        paddingVertical:0,
+        paddingVertical:12,
         alignItems: 'center',
         justifyContent:'space-between',
         marginVertical:6,
         marginHorizontal:10,
-        borderWidth:.5,
-        borderRadius:10
+        backgroundColor:'#8F8EBF',
+        borderRadius:5,
+        color: 'white',
+
     },
     subtitle:{
-        fontWeight:700,
+        fontWeight:550,
+        margin:8,
+
     },
     image:{
-        marginTop: 10,
+        marginTop: 12,
         marginBottom: 8,
         height: 270,
         width: 270,
-        borderRadius: 8,
+        borderRadius: 5,
+        borderWidth:2,
+        borderColor: '#4F4D8C',
         alignItems: 'center',
+        backgroundColor: '#4F4D8C',
+        margin: 8
     },
 })
 

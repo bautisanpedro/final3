@@ -29,7 +29,9 @@ class Home extends Component {
     render() {
         return (
         <View style={styles.container}>
+            <Text style={styles.home}>Home</Text>
             <FlatList
+                style={styles.lista}
                 data={this.state.allPosts}
                 keyExtractor={(item)=> item.id.toString()}
                 renderItem={({item}) => <Post navigation={this.props.navigation} id={item.id} data={item.data} />}
@@ -41,7 +43,21 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        flex:1,
+        backgroundColor: '#4F4D8C',
+        color: 'white'
+
+    },
+    lista:{
+       
+    },
+    home:{
+        color: 'white',
+        fontSize: 20,
+        flex:1,
+        alignSelf: 'center',
+        margin:25,
+
     }
 })
 

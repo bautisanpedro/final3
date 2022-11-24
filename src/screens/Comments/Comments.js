@@ -61,36 +61,34 @@ class Comments extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1
+        flex: 1,
+        backgroundColor: '#4F4D8C'
     },
     
     input:{
-      borderColor: '#ccc',
-      borderWidth: 2,
-      marginBottom: 5,
+      margin: 8,
       padding: 10,
       fontSize: 15,
       borderRadius: 5,
+      backgroundColor: 'white'
     },
 
     button:{
       textAlign: 'center',
-      backgroundColor: '#0095F6',
+      backgroundColor: '#8F8EBF',
       padding: 5,
-      borderRadius: 8,
-      borderWidth: 1,
-      borderColor: '#ccc',
-      marginBottom: 5,
-      fontWeight: 'bold',
-      color:'#FFFFFF',
+      borderRadius: 5,
+      margin: 8,
+      fontWeight: '400',
       fontSize: 17
   },
 
   text:{
     textAlign: 'center',
-    fontSize: 17,
-    fontWeight: 'bold',
-    marginTop: 5
+    fontSize: 20,
+    fontWeight: '400',
+    margin:20,
+    color: 'white'
   }
 })
 
