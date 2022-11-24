@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Home from '../screens/Home/Home'
 import Comments from '../screens/Comments/Comments'
 //import UsersProfile from '../screens/UsersProfile/UsersProfile'
+import Perfil from '../screens/Perfil/Perfil'
 
 const Stack = createNativeStackNavigator()
 
@@ -23,6 +24,13 @@ export default class HomeNavigation extends Component {
             name='Comments'
             component={Comments}
         />
+        <Stack.Screen
+                        name='Perfil'
+                        component={Perfil}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
       </Stack.Navigator>
     )
   }

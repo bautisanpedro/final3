@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, FlatList } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 import  Post  from '../../components/Post/Post'
@@ -49,33 +49,75 @@ signOut(){
 
     render() {
         return (
-          <View>
+          <View style={styles.container}>
             
-            <Text>Nombre de usuario: {this.state.perfil.username}</Text>
-            <Text>Email:  {this.state.perfil.email}</Text>
-            <Text>Biografía: {this.state.perfil.descripcion}</Text>
+            <Text style={styles.titulo}>Nombre de usuario: {this.state.perfil.username}</Text>
+            <Text style={styles.titulo}>Email:  {this.state.perfil.email}</Text>
+            <Text style={styles.titulo}>Biografía: {this.state.perfil.biografia}</Text>
             <TouchableOpacity onPress={() => this.signOut()}>
-              <Text>Cerrar Sesion</Text>
+              <Text style={styles.botones}>Cerrar Sesion</Text>
             </TouchableOpacity>
           
           
           
           
-          <Text>Tus Publicaciones </Text> 
+          <Text style={styles.titulo2}>Tus Publicaciones </Text> 
           <FlatList
           data={this.state.posts}
           keyExtractor={(item)=> item.id.toString()}
           renderItem={({item}) => <Post navigation={this.props.navigation} id={item.id} data={item.data}/>}
         />
-            
-            
-            <TouchableOpacity onPress={() => this.signOut()}>
-              <Text>Cerrar Sesion</Text>
-            </TouchableOpacity>
-          
-            </View>
+          </View>
         )
       }
     }
+
+    const styles = StyleSheet.create({
+      botones: {
+          marginBottom: '10px',
+          flex: 1,
+          alignContent: 'center',
+          alignSelf: 'center',
+          marginTop: 20,
+          margin: 3,
+          padding: 10,
+          borderRadius: 5,
+          backgroundColor: '#8F8EBF',
+          width: 'fit-content',
+          color: 'white'
+  
+      },
+      titulo: {
+          flex: 1,
+          alignContent: 'center',
+          alignSelf: 'center',
+          marginTop: 5,
+          fontSize: 20,
+          color: 'white'
+      },
+      error:{
+          color: 'red',
+          backgroundColor: '#8F8EBF',
+          marginHorizontal: 20,
+          borderRadius: 5,
+          padding: 8
+  
+      },
+      titulo2: {
+        flex: 1,
+        alignItems: 'center',
+        alignContent: 'center',
+        marginTop: 5,
+        fontSize: 15,
+        color: 'white'
+    },
+    container:{
+      flex:1,
+      backgroundColor: '#4F4D8C',
+      color: 'white'
+
+  },
+  })
+  
 
 export default Profile

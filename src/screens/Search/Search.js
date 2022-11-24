@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, TouchableOpacity,  FlatList} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity,  FlatList, StyleSheet} from 'react-native';
 import { auth, db } from '../../firebase/config'
 
 class Search extends Component {
@@ -7,7 +7,8 @@ class Search extends Component {
         super(props)
         this.state = { 
             search: '',
-            results: [],            
+            results: [],
+            backup:[],            
         }
     }
     
@@ -22,6 +23,7 @@ class Search extends Component {
             })
                    this.setState({
                     results: usuarios,
+                    backup: usuarios
                     
                })
             })
@@ -29,26 +31,26 @@ class Search extends Component {
     })
 }
 buscar(text){
-    let filtro = this.state.results.filter(UnUsuario => 
+    let filtro = this.state.backup.filter(UnUsuario => 
         UnUsuario.data.username.toLowerCase().includes(text.toLowerCase()))
 
     this.setState({
-        results: text,
+        search: text,
         results: filtro, 
     })
 }
 
 render() {
     return (
-            <View>
-            <TextInput
-              onChangeText={ text => this.setState( {search:text} )}
+            <View style={styles.container}>
+            <TextInput style={styles.input}
+              onChangeText={ text => this.buscar(text)}
               placeholder='Busca un usuario'
               value={this.state.search}>
             </TextInput>
 
             <TouchableOpacity onPress={()=> this.buscar(this.state.search)}>
-                <Text> Buscar</Text>
+                <Text style={styles.botones}> Buscar</Text>
             </TouchableOpacity>
 
             <FlatList
@@ -56,8 +58,10 @@ render() {
               keyExtractor={(item) => item.id}
               renderItem= {({item}) => <View>
                 
-                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Perfil')}>
-                  <Text>{item.data.username}</Text>
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Perfil',
+                {email: item.data.email}
+                 )}>
+                  <Text style={styles.titulo2}>{item.data.username}</Text>
                 </TouchableOpacity>  
                 
                 </View>}
@@ -68,6 +72,63 @@ render() {
 
 }
 }
+
+const styles = StyleSheet.create({
+    botones: {
+        marginBottom: '10px',
+        flex: 1,
+        alignContent: 'center',
+        alignSelf: 'center',
+        marginTop: 20,
+        margin: 3,
+        padding: 10,
+        borderRadius: 5,
+        backgroundColor: '#8F8EBF',
+        width: 'fit-content',
+        color: 'white'
+
+    },
+    titulo: {
+        flex: 1,
+        alignContent: 'center',
+        alignSelf: 'center',
+        marginTop: 5,
+        fontSize: 20,
+        color: 'white'
+    },
+    error:{
+        color: 'red',
+        backgroundColor: '#8F8EBF',
+        marginHorizontal: 20,
+        borderRadius: 5,
+        padding: 8
+
+    },
+    titulo2: {
+      flex: 1,
+      alignItems: 'center',
+      alignContent: 'center',
+      marginTop: 5,
+      fontSize: 15,
+      color: 'white'
+  },
+  container:{
+    flex:1,
+    backgroundColor: '#4F4D8C',
+    color: 'white'
+
+},
+input: {
+    flex: 1,
+    alignContent: 'center',
+    marginBottom: '10px',
+    marginTop: 20,
+    margin: 3,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: 'white',
+}
+})
 
 
 

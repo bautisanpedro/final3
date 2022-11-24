@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, FlatList } from 'react-native'
+import { Text, View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 import  Post  from '../../components/Post/Post'
@@ -12,7 +12,6 @@ class Perfil extends Component {
         this.state={
             posts:[],
             perfil:{},
-            id: '',
         }
     }
 
@@ -43,31 +42,57 @@ class Perfil extends Component {
    
     render() {
         return (
-          <View>
-            {
-            <>
-            <Text>Nombre de Usuario: {this.state.perfil.username}</Text>
-            <Text>Email:  {this.state.perfil.email}</Text>
-            <Text>Biografía: {this.state.perfil.descripcion}</Text>
-    
-            </>
-            }
+          <View style={styles.container}>
+           
+            <Text style={styles.titulo}>Nombre de Usuario: {this.state.perfil.username}</Text>
+            <Text style={styles.titulo}>Email:  {this.state.perfil.email}</Text>
+            <Text style={styles.titulo}>Biografía: {this.state.perfil.biografia}</Text>
           
           
           
-          <Text> Publicaciones </Text> 
+          <Text style={styles.titulo2}> Publicaciones </Text> 
           <FlatList
           data={this.state.posts}
           keyExtractor={(item)=> item.id.toString()}
           renderItem={({item}) => <Post navigation={this.props.navigation} id={item.id} data={item.data}/>}
         />
-            
-            
-           
-          
-            </View>
+ 
+        </View>
         )
       }
     }
+
+    const styles = StyleSheet.create({
+      titulo: {
+          flex: 1,
+          alignContent: 'center',
+          alignSelf: 'center',
+          marginTop: 5,
+          fontSize: 20,
+          color: 'white'
+      },
+      error:{
+          color: 'red',
+          backgroundColor: '#8F8EBF',
+          marginHorizontal: 20,
+          borderRadius: 5,
+          padding: 8
+  
+      },
+      titulo2: {
+        flex: 1,
+        alignItems: 'center',
+        alignContent: 'center',
+        marginTop: 5,
+        fontSize: 15,
+        color: 'white'
+    },
+    container:{
+      flex:1,
+      backgroundColor: '#4F4D8C',
+      color: 'white'
+
+  },
+  })
 
 export default Perfil
