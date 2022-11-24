@@ -2,10 +2,10 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
 import * as ImagePicker from 'expo-image-picker';
-import {storage} from '../../firebase/config'
+import {storage} from '../../firebase/config' 
 
 
-class Register extends Component {
+class Register extends Component { //creo componente
 
     constructor() {
         super()
@@ -13,6 +13,7 @@ class Register extends Component {
             email: '',
             password: '',
             error: '',
+            foto: '',
             username: '',
             descripcion: ''
 
@@ -22,10 +23,10 @@ class Register extends Component {
 
     registrar(email, clave){
         if (this.state.usuario == '') {
-            this.setState({error:"El usuario no puede quedar vacío"})
+            this.setState({error:"El usuario no puede quedar vacío"}) //condicional para que el usuario no quede vacio
           }
         else {
-        auth.createUserWithEmailAndPassword(email, clave)
+        auth.createUserWithEmailAndPassword(email, clave) 
         .then(resp => {
             db.collection('users').add({
                 email: auth.currentUser.email,
@@ -40,17 +41,17 @@ class Register extends Component {
         .catch( err => this.setState({error:err.message}))
     }}
     pickImage() {
-        ImagePicker.launchImageLibraryAsync() // usuario elige entre sus fotos
+        ImagePicker.launchImageLibraryAsync()                                           // usuario elige entre sus fotos
             .then(resp => {
                 fetch(resp.uri)
-                    .then(data => data.blob()) // Paso la uri a BLOB = Binary Large OBject
+                    .then(data => data.blob())                                            // Paso la uri a BLOB = Binary Large OBject
                     .then(image => {
                         const ref = storage.ref(`fotosDePerfil/${Date.now()}.jpg`) // Aclaro donde y como se guarda lo foto en el storage de firebase
-                        ref.put(image) // Guardo la imagen en esa ubicación
+                        ref.put(image)                                              // Guardo la imagen en esa ubicación
                             .then(() => {
-                                ref.getDownloadURL() // Recibo la url de la foto para guardarla en la base de datos
+                                ref.getDownloadURL()                                    // Recibo la url de la foto para guardarla en la base de datos
                                     .then(url => {
-                                        this.setState({ foto: url }) // Guardo la url en el estado
+                                        this.setState({ foto: url })                     // Guardo la url en el estado
                                     }
                                     )
                             })
