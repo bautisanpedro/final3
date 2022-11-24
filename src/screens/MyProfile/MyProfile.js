@@ -12,7 +12,7 @@ class Profile extends Component {
         this.state={
             posts:[],
             perfil:{},
-            id: '',
+            
         }
     }
 
@@ -51,7 +51,7 @@ signOut(){
         return (
           <View>
             
-            <Text>Nombre de Usuario: {this.state.perfil.username}</Text>
+            <Text>Nombre de usuario: {this.state.perfil.username}</Text>
             <Text>Email:  {this.state.perfil.email}</Text>
             <Text>Biografía: {this.state.perfil.descripcion}</Text>
     

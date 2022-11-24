@@ -7,17 +7,16 @@ class Search extends Component {
         super(props)
         this.state = { 
             search: '',
-            results: [],
-            
+            results: [],            
         }
     }
     
     componentDidMount(){
         db.collection('users').onSnapshot(
             docs =>{
-                    let users = [];
+                    let usuarios = [];
                docs.forEach( doc => {
-                    users.push({
+                    usuarios.push({
                         id: doc.id,
                         data: doc.data()
             })
@@ -29,13 +28,43 @@ class Search extends Component {
             
     })
 }
+buscar(text){
+    let filtro = this.state.results.filter(UnUsuario => 
+        UnUsuario.data.username.toLowerCase().includes(text.toLowerCase()))
 
-    render() {
-        return (
+    this.setState({
+        results: text,
+        results: filtro, 
+    })
+}
+
+render() {
+    return (
             <View>
-           <Text>Search</Text>
-           </View>
-        )
+            <TextInput
+              onChangeText={ text => this.setState( {search:text} )}
+              placeholder='Busca un usuario'
+              value={this.state.search}>
+            </TextInput>
+
+            <TouchableOpacity onPress={()=> this.buscar(this.state.search)}>
+                <Text> Buscar</Text>
+            </TouchableOpacity>
+
+            <FlatList
+              data={this.state.results}
+              keyExtractor={(item) => item.id}
+              renderItem= {({item}) => <View>
+                
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Perfil')}>
+                  <Text>{item.data.username}</Text>
+                </TouchableOpacity>  
+                
+                </View>}
+            /> 
+             
+        </View>
+    )
 
 }
 }
