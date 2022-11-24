@@ -47,7 +47,7 @@ class NewPosts extends Component {
                         value={this.state.descripcion}
                         keyboardType='default'
                     />
-                    <TouchableOpacity onPress={()=> this.guardarPost(this.state.descripcion)}>
+                    <TouchableOpacity style={styles.button} onPress={()=> this.guardarPost(this.state.descripcion)}>
                         <Text style={styles.button}>Compartir</Text>
                     </TouchableOpacity>
                 </>
@@ -60,28 +60,28 @@ class NewPosts extends Component {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#4F4D8C',
+
     },
     
-    input:{
-        borderColor: '#ccc',
-        borderWidth: 2,
-        marginBottom: 5,
+    input: {
+        marginBottom: '10px',
+        marginTop: 20,
+        margin: 3,
         padding: 10,
-        fontSize: 15,
         borderRadius: 5,
+        backgroundColor: 'white',
     },
 
     button:{
         textAlign: 'center',
-        backgroundColor: '#0095F6',
+        backgroundColor: '#8F8EBF',
         padding: 5,
         borderRadius: 8,
-        borderWidth: 1,
         borderColor: '#ccc',
-        marginBottom: 5,
-        fontWeight: 'bold',
-        color:'#FFFFFF',
+        margin: 5,
+        fontWeight: '400',
         fontSize: 17
     },
 })

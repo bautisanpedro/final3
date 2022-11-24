@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
-import { Ionicons, Entypo, FontAwesome, AntDesign } from '@expo/vector-icons'
+import { Ionicons, AntDesign } from '@expo/vector-icons'
 import Profile from '../screens/MyProfile/MyProfile'
 import HomeNavigation from './HomeNavigation'
 import Search from '../screens/Search/Search'

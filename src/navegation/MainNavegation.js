@@ -12,8 +12,8 @@ const Stack = createNativeStackNavigator()
 
 
 class MainNavigation extends Component {
-    constructor(props) {
-        super(props)
+    constructor(props) {   //  metodo constructor -> contiene info del estado inicial y administra props
+        super(props)   // funcion para utilizar las props
         this.state = {
             initialScreen: 'Login'
         }
