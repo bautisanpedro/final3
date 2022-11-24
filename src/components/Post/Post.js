@@ -92,7 +92,7 @@ class Post extends Component {
                             <FontAwesome name='heart-o' color='red' size={32} />
                         </TouchableOpacity>
                     }
-                
+                <Text>Comentarios: {this.state.ComentsCount}</Text>
                 <TouchableOpacity onPress={()=> this.props.navigation.navigate('Comments',{id: this.props.id})}>
                     <Text>Agregar comentario</Text>
                 </TouchableOpacity>
