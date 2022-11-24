@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, FlatList, StyleSheet, Image } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 import  Post  from '../../components/Post/Post'
@@ -47,8 +47,10 @@ class Perfil extends Component {
             <Text style={styles.titulo}>Nombre de Usuario: {this.state.perfil.username}</Text>
             <Text style={styles.titulo}>Email:  {this.state.perfil.email}</Text>
             <Text style={styles.titulo}>Biografía: {this.state.perfil.biografia}</Text>
-          
-          
+            <Image style={styles.foto}
+            source={{uri: this.state.perfil.foto}} 
+            resizeMode = 'contain'
+          />
           
           <Text style={styles.titulo2}> Publicaciones </Text> 
           <FlatList
@@ -93,6 +95,13 @@ class Perfil extends Component {
       color: 'white'
 
   },
+  foto:{
+    height:"50px",
+    width:"50px",
+    borderRadius: "5px",
+    marginLeft:"auto",
+    marginRight:"auto"
+  }
   })
 
 export default Perfil

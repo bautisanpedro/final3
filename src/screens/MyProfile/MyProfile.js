@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 import  Post  from '../../components/Post/Post'
@@ -54,6 +54,10 @@ signOut(){
             <Text style={styles.titulo}>Nombre de usuario: {this.state.perfil.username}</Text>
             <Text style={styles.titulo}>Email:  {this.state.perfil.email}</Text>
             <Text style={styles.titulo}>Biografía: {this.state.perfil.biografia}</Text>
+            <Image style={styles.foto}
+            source={{uri: this.state.perfil.foto}} 
+            resizeMode = 'contain'
+          />
             <TouchableOpacity onPress={() => this.signOut()}>
               <Text style={styles.botones}>Cerrar Sesion</Text>
             </TouchableOpacity>
@@ -117,6 +121,13 @@ signOut(){
       color: 'white'
 
   },
+  foto:{
+    height:"50px",
+    width:"50px",
+    borderRadius: "5px",
+    marginLeft:"auto",
+    marginRight:"auto"
+  }
   })
   
 
