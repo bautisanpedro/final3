@@ -54,7 +54,9 @@ signOut(){
             <Text>Nombre de usuario: {this.state.perfil.username}</Text>
             <Text>Email:  {this.state.perfil.email}</Text>
             <Text>Biografía: {this.state.perfil.descripcion}</Text>
-    
+            <TouchableOpacity onPress={() => this.signOut()}>
+              <Text>Cerrar Sesion</Text>
+            </TouchableOpacity>
           
           
           

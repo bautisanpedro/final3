@@ -13,26 +13,27 @@ class Register extends Component {
             email: '',
             password: '',
             error: '',
-            foto: '',
             username: '',
-            descripcion: ''
+            createdAt: '',
+            biografia: '',
+            foto: '',
 
         }  // definimos un estado inicial 
     }
 
 
-    registrar(email, clave){
+    registrar(email, password){
         if (this.state.usuario == '') {
             this.setState({error:"El usuario no puede quedar vacío"}) //validacion para que el usuario no quede vacio
           }
         else {
-        auth.createUserWithEmailAndPassword(email, clave) // ejecutamos el metodo de creacion de usuario y contraseña
+        auth.createUserWithEmailAndPassword(email, password) // ejecutamos el metodo de creacion de usuario y contraseña
         .then(resp => {
             db.collection('users').add({
                 email: auth.currentUser.email,
-                usuario: this.state.usuario,
+                username: this.state.username,
                 createdAt: Date.now(), 
-                clave: this.state.clave,
+                password: this.state.password,
                 biografia: this.state.biografia,
                 foto: this.state.foto
             })
@@ -40,6 +41,7 @@ class Register extends Component {
         .then( resp => this.props.navigation.navigate('Login'))
         .catch( err => this.setState({error:err.message}))
     }}
+    
     pickImage() {
         ImagePicker.launchImageLibraryAsync()  // usuario elige entre sus fotos
             .then(resp => {
@@ -90,11 +92,11 @@ class Register extends Component {
                     <TextInput
                         style={styles.input}
                         placeholder='Ingresá tu descripción'
-                        onChangeText={text => this.setState({ descripcion: text })}
+                        onChangeText={text => this.setState({ biografia: text })}
                         value={this.state.biografia}
                     />
 
-                    <View>
+                     <View>
 
                         <TouchableOpacity onPress={() => this.pickImage()}>
                             <Text style={styles.botones}>Foto de perfil</Text>
